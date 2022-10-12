@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 array.push(small)
                 total = caluclate(array)
                 ongoing.innerHTML = total
+                current.innerHTML = total
                 array = []
                 small = ""
                 array.push(total)
@@ -46,7 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
     clear.addEventListener("click", () =>{
         array.length = 0
         small = ""
-        console.log(array, small)
+        current.textContent = " "
+        ongoing.textContent = " "
     })
 
     backspace.addEventListener("click", () =>{
@@ -55,26 +57,29 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     function caluclate(array){
-        a = parseInt(array[0])
-        b = parseInt(array[2])
+        
+        a = parseFloat(array[0])
+        b = parseFloat(array[2])
         opperand = array[1]
 
-        if(opperand == "x"){
-            array.push(a * b)
-            return a * b
+        if(a == 0 && b == 0 && opperand == "/"){
+            return 0
+        }
+        else if(opperand == "x"){
+            result = a * b
         }
         else if(opperand == "/"){
-            array.push(a / b)
-            return a / b
+            result = a / b
         }
         else if(opperand == "-"){
-            array.push(a - b)
-            return a - b
+            result = a - b
         }
         else{
-            array.push(a + b)
-            return a + b
+            result = a + b
         }
+        
+        array.push(Math.round(result * 100) / 100)
+        return (Math.round(result * 100) / 100)
     }
 
 
