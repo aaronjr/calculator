@@ -53,7 +53,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     backspace.addEventListener("click", () =>{
         // do something on clear button
-       
+       if(small.length > 0){
+        small = small.substring(0, small.length - 1)
+        current.textContent = small
+       }
     })
 
     function caluclate(array){
@@ -63,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
         opperand = array[1]
 
         if(a == 0 && b == 0 && opperand == "/"){
-            return 0
+            result = 0
         }
         else if(opperand == "x"){
             result = a * b
@@ -81,7 +84,5 @@ document.addEventListener("DOMContentLoaded", () => {
         array.push(Math.round(result * 100) / 100)
         return (Math.round(result * 100) / 100)
     }
-
-
 
 })
