@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    // get neccesary components to update
     let buttons = document.querySelectorAll('.button')
     let clear = document.querySelector('.clear')
     let backspace = document.querySelector('.backspace') 
@@ -9,11 +10,18 @@ document.addEventListener("DOMContentLoaded", () => {
     let array = []
     let opperands = ["x", "/", "+", "-"]
 
+    // add event listeners to all buttons
     buttons.forEach(button=>{
         button.addEventListener('click', () => {
             // do something with the button
             clicked = button.firstElementChild.textContent
 
+            // For equals and if first two parts of the equation
+            // add the most recetn sum to the other two parts
+            // use the calculate function to do the math
+            // update HTML
+            // set array and small to empty
+            // make first section of array the total to continue doing maths
             if(clicked == "=" && array.length == 2){
                 array.push(small)
                 total = caluclate(array)
@@ -22,19 +30,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 array = []
                 small = ""
                 array.push(total)
-                console.log(array)
             }
+            // if equals but top not met, do nothing
             else if(clicked == "="){}
+            // if opperand chosen
             else if(opperands.includes(clicked)){
                 current.textContent = clicked
+                // check to see if first part of equation is ready
                 if(small.length > 0){
                     array.push(small)
+                    // set small back to empty after saved in array
                     small = ""
                 }
+                // add operand ready to the equation for later
                 if(array.length == 1){
                     array.push(clicked)
                 }
             }
+            // add number to current number, to make numbers bigger than one digit
             else{ 
                 small += clicked
                 current.textContent = small
@@ -43,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     })
 
-    // clear history and reset scren
+    // clear array and small and reset screen to empty
     clear.addEventListener("click", () =>{
         array.length = 0
         small = ""
@@ -51,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ongoing.textContent = " "
     })
 
+    // remove last digit from number held in small
     backspace.addEventListener("click", () =>{
         // do something on clear button
        if(small.length > 0){
@@ -58,16 +72,20 @@ document.addEventListener("DOMContentLoaded", () => {
         current.textContent = small
        }
     })
-
+    
+    // calculte function
     function caluclate(array){
         
+        // get parts from array
         a = parseFloat(array[0])
         b = parseFloat(array[2])
-        opperand = array[1]
+        let opperand = array[1]
 
+        // check for 0 / 0
         if(a == 0 && b == 0 && opperand == "/"){
             result = 0
         }
+        // check remaining operands
         else if(opperand == "x"){
             result = a * b
         }
@@ -81,8 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
             result = a + b
         }
         
-        array.push(Math.round(result * 100) / 100)
+        // return rounded to two decimal places
         return (Math.round(result * 100) / 100)
     }
-
 })
